@@ -1,0 +1,4 @@
+Logs/*
+applicationhost.config
+.vscode/tasks.json
+.vscode/launch.json
