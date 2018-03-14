@@ -1,15 +1,15 @@
 /*
  * ActionViewController
  */
-var ActionViewController = function(options){
+var ActionViewController = function (options) {
 
     /*
      * Variables accessible
      * in the class
      */
     var vars = {
-        controller : null,
-        actionDiv : null,
+        controller: null,
+        actionDiv: null,
     };
 
     /*
@@ -22,31 +22,38 @@ var ActionViewController = function(options){
     /*
      * Constructor
      */
-    this.construct = function(options){
-        $.extend(vars , options);
+    this.construct = function (options) {
+        $.extend(vars, options);
     };
 
     /*
      * Public method
      * Can be called outside class
      */
-    
-    this.initActionViewController = function(){
+
+    this.initActionViewController = function () {
         console.log("action view controller");
-        getCanvasSetControl();
+        getActionControls();
     };
-    
-    var getCanvasSetControl = function() {
-        var ctrl =  [
-            "<div id='canvasctrl' class='input-group mb-3'>",
-            "<label for='canvaslocation' />",
-            "<input type='text' class='form-control' id='canvaslocation' placeholder='Enter Location' aria-label='Enter Location to search' />",
-            "<button id='canvasgo' type='button' class='btn btn-primary'>Go</button>",
-            "</div>",
-        ].join(" ");
-        $(vars.actionDiv).append(ctrl);
-        console.log(ctrl);
-    }
+
+    var getActionControls = function () {
+        $.getScript("content/views/actionDefaultView.js", function (data, textStatus, jqxhr) {
+            if (jqxhr.status == 200) {
+                console.log("views loaded");
+                console.log(data);
+                var joinedctrls = "";
+                $.each(content.controls, function (n, elem) {
+                    $.each(elem, function (n, html) {
+                        if (n == "html") {
+                            joinedctrls = joinedctrls + html.join(" ");
+                        }
+                    });
+                });
+                console.log(joinedctrls);
+                $(vars.actionDiv).append(joinedctrls);
+            }
+        });
+    };
 
     /*
      * Private method
