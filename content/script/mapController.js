@@ -32,8 +32,7 @@
     };
 
     var attachEvents = function(){
-      //this.evnts.onInitMapSearchBox.removeAll();
-      //this.evnts.onInitMapSearchBox.add(this.initMapSearchBox);
+      root.evnts.onInitMapSearchBox.add(root.initMapSearchBox);
     }
 
     this.initMap = function () {
@@ -46,15 +45,19 @@
       });
     };
 
+    var getLocation = function(){
+
+    };
+
     this.initMapSearchBox = function () {
       // Create the search box and link it to the UI element.
-      var input = document.getElementById('pac-input');
+      var input = document.getElementById('canvaslocation');
       var searchBox = new google.maps.places.SearchBox(input);
-      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+      vars.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
       // Bias the SearchBox results towards current map's viewport.
-      map.addListener('bounds_changed', function () {
-        searchBox.setBounds(map.getBounds());
+      vars.map.addListener('bounds_changed', function () {
+        searchBox.setBounds(vars.map.getBounds());
       });
 
       var markers = [];
@@ -90,7 +93,7 @@
 
           // Create a marker for each place.
           markers.push(new google.maps.Marker({
-            map: map,
+            map: vars.map,
             icon: icon,
             title: place.name,
             position: place.geometry.location
@@ -103,7 +106,7 @@
             bounds.extend(place.geometry.location);
           }
         });
-        map.fitBounds(bounds);
+        vars.map.fitBounds(bounds);
       });
     };
 

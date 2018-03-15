@@ -37,18 +37,18 @@
          */
 
         this.initAction = function () {
-            console.log(vars.actionDiv);
+            clog(vars.actionDiv);
             $.getScript("content/script/actionViewController.js", viewLoaded);
         };
 
         var viewLoaded = function (data, textStatus, jqxhr) {
             if (jqxhr.status == 200) {
-                console.log("view manager loaded");
+                clog("view manager loaded");
                 vars.viewManager = new ActionViewController({
                     controller: this,
                     actionDiv: vars.actionDiv
                 });
-                console.log(vars.viewManager);
+                clog(vars.viewManager);
                 vars.viewManager.initActionViewController();
             }
         };
@@ -59,7 +59,7 @@
          */
         /*
         var myPrivateMethod = function() {
-            console.log('accessed private method');
+            clog('accessed private method');
         };
         */
 

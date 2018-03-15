@@ -32,26 +32,20 @@ var ActionViewController = function (options) {
      */
 
     this.initActionViewController = function () {
-        console.log("action view controller");
-        getActionControls();
+        clog("action view controller");
+        //getActionControls();
+        var buttons = ["Home", "Schools", "Restaurants", "Transit", "Groceries"];
+        getActionTemplate(buttons);
     };
 
-    var getActionControls = function () {
-        $.getScript("content/views/actionDefaultView.js", function (data, textStatus, jqxhr) {
-            if (jqxhr.status == 200) {
-                console.log("views loaded");
-                console.log(data);
-                var joinedctrls = "";
-                $.each(content.controls, function (n, elem) {
-                    $.each(elem, function (n, html) {
-                        if (n == "html") {
-                            joinedctrls = joinedctrls + html.join(" ");
-                        }
-                    });
-                });
-                console.log(joinedctrls);
-                $(vars.actionDiv).append(joinedctrls);
-            }
+    var getActionTemplate = function(buttonData){
+        $.ajax({
+            url: "content/views/actionView.ejs",
+            dataType: "text"
+        }).done(function(data, textStatus, jqXHR){
+            var template = ejs.compile(data);
+            clog(template);
+            $(vars.actionDiv).append((template({"buttons" : buttonData})));
         });
     };
 
@@ -61,7 +55,7 @@ var ActionViewController = function (options) {
      */
     /*
     var myPrivateMethod = function() {
-        console.log('accessed private method');
+        clog('accessed private method');
     };
     */
 
