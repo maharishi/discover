@@ -1,3 +1,7 @@
+<div id='canvasctrl' class='input-group mb-3'>
+    <label for='canvaslocation' />
+    <input type='text' class='form-control' id='canvaslocation' placeholder='Enter Location' aria-label='Enter Location to search' />
+</div>
 <% if (buttons) { %>
 <ul class='list-group'>
     <% buttons.forEach(function (button) { %>
@@ -7,14 +11,11 @@
 <% } %>
 <script lang="javascript" type="text/javascript">
     $(".list-group-item").on("click", function(){
-        $(".list-group-item").each(function(n, elem){
-            $( this ).removeClass("active");
-        });
-        $( this ).addClass("active");
+        // $(".list-group-item").each(function(n, elem){
+        //     $( this ).removeClass("active");
+        // });
+        $( this ).toggleClass("active");
+        evnts.map.onPlaceSearch.dispatch($( this ).text());
     })
     evnts.map.onInitMapSearchBox.dispatch();
 </script>
-<span id='canvasctrl' class='input-group mb-3'>
-    <label for='canvaslocation' />
-    <input type='text' class='form-control' id='canvaslocation' placeholder='Enter Location' aria-label='Enter Location to search' />
-</span>

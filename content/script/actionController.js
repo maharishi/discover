@@ -71,5 +71,5 @@
 
     };
     
-    global["ActionController"] = ActionController;
+    global.ActionController = ActionController;
 })(this);

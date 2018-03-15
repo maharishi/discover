@@ -11,10 +11,12 @@
     var vars = {
       map: null,
       mapDiv: null,
+      infowindow: new google.maps.InfoWindow(),
     };
 
     this.evnts = {
-      onInitMapSearchBox: new signal()
+      onInitMapSearchBox: new signal(),
+      onPlaceSearch: new signal(),
     };
     /*
      * Can access this.method
@@ -33,32 +35,33 @@
 
     var attachEvents = function(){
       root.evnts.onInitMapSearchBox.add(root.initMapSearchBox);
-    }
+      root.evnts.onPlaceSearch.add(root.placeSearch);
+    };
 
     this.initMap = function () {
+      var loc = getBrowserLocation();
       vars.map = new google.maps.Map(vars.mapDiv, {
         center: {
-          lat: 40.5609021,
-          lng: -74.3997976
+          lat: loc == null ? 40.5609021 : loc.lat,
+          lng: loc == null ? -74.3997976 : loc.lng
         }, //defaulted to 08820
         zoom: 13
       });
     };
 
-    var getLocation = function(){
-
+    var getBrowserLocation = function(){
+      if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(function(position){
+          return {"lat": position.coords.latitude ,"lng": position.coords.longitude}; 
+        });
+      }
+      return null;
     };
 
     this.initMapSearchBox = function () {
       // Create the search box and link it to the UI element.
       var input = document.getElementById('canvaslocation');
       var searchBox = new google.maps.places.SearchBox(input);
-      vars.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-      // Bias the SearchBox results towards current map's viewport.
-      vars.map.addListener('bounds_changed', function () {
-        searchBox.setBounds(vars.map.getBounds());
-      });
 
       var markers = [];
       // Listen for the event fired when the user selects a prediction and retrieve
@@ -110,16 +113,33 @@
       });
     };
 
-    /*
-     * Private method
-     * Can only be called inside class
-     */
-    /*
-    var myPrivateMethod = function() {
-        console.log('accessed private method');
+    this.placeSearch = function (searchplaces) {
+      var service = new google.maps.places.PlacesService(vars.map);
+      service.nearbySearch({
+        location: {lat: vars.map.center.lat(), lng: vars.map.center.lng()},
+        radius: 500,
+        type: ['searchplaces']
+      }, function(results, status){
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            createMarker(results[i]);
+          }
+        }
+      });
     };
-    */
 
+    var createMarker = function (place) {
+      var placeLoc = place.geometry.location;
+      var marker = new google.maps.Marker({
+        map: vars.map,
+        position: place.geometry.location
+      });
+
+      google.maps.event.addListener(marker, 'click', function() {
+        vars.infowindow.setContent(place.name);
+        vars.infowindow.open(vars.map, this);
+      });
+    };
 
     /*
      * Pass options when class instantiated
@@ -128,5 +148,5 @@
 
   };
 
-  global['MapController'] = MapController;
+  global.MapController = MapController;
 })(this);

@@ -34,7 +34,7 @@ var ActionViewController = function (options) {
     this.initActionViewController = function () {
         clog("action view controller");
         //getActionControls();
-        var buttons = ["Home", "Schools", "Restaurants", "Transit", "Groceries"];
+        var buttons = ["Homes", "Schools", "Restaurants", "Transits", "Groceries"];
         getActionTemplate(buttons);
     };
 

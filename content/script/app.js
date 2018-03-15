@@ -1,6 +1,6 @@
 (function (global) {
-  global["signal"] = signals.Signal;
-  global["evnts"] = {};
+  global.signal = signals.Signal;
+  global.evnts = {};
 
   $(document).ready(function () {
     console.log("ready!");
