@@ -118,7 +118,7 @@
       service.nearbySearch({
         location: {lat: vars.map.center.lat(), lng: vars.map.center.lng()},
         radius: 500,
-        type: ['searchplaces']
+        type: [searchplaces]
       }, function(results, status){
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {

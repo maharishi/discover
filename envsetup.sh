@@ -1,1 +1,3 @@
-sudo apt install nodejs
+ rm README.md
+ rm gulpfile.js
+ rm .gitignore
