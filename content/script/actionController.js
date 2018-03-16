@@ -38,7 +38,7 @@
 
         this.initAction = function () {
             clog(vars.actionDiv);
-            $.getScript("content/script/actionViewController.js", viewLoaded);
+            $.getScript("script/actionViewController.js", viewLoaded);
         };
 
         var viewLoaded = function (data, textStatus, jqxhr) {

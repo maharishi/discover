@@ -40,7 +40,7 @@ var ActionViewController = function (options) {
 
     var getActionTemplate = function(buttonData){
         $.ajax({
-            url: "content/views/actionView.ejs",
+            url: "views/actionView.ejs",
             dataType: "text"
         }).done(function(data, textStatus, jqXHR){
             var template = ejs.compile(data);
