@@ -1,3 +1,4 @@
+npm install del --save-dev
 npm install gulp --save-dev
 npm install gulp-inject --save-dev
 npm install gulp-webserver --save-dev

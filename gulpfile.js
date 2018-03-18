@@ -37,7 +37,7 @@ gulp.task('clean', function () {
   del([paths.tmp, paths.dist]);
 });
 
-gulp.task('jshint', function(){
+gulp.task('jshint', function () {
   return gulp.src(paths.srcJS)
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
@@ -92,6 +92,7 @@ gulp.task('default', ['watch']);
 
 gulp.task('html:dist', function () {
   return gulp.src(paths.srcHTML)
+    .pipe(htmlclean())
     .pipe(gulp.dest(paths.dist));
 });
 gulp.task('css:dist', function () {
@@ -130,7 +131,6 @@ gulp.task('inject:dist', ['copy:dist'], function () {
   return gulp.src(paths.distIndex)
     .pipe(inject(css, { relative: true }))
     .pipe(inject(js, { relative: true }))
-    .pipe(htmlclean())
     .pipe(gulp.dest(paths.dist));
 });
 
