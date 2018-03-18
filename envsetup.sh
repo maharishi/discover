@@ -1,3 +1,11 @@
- rm README.md
- rm gulpfile.js
- rm .gitignore
+npm install gulp --save-dev
+npm install gulp-inject --save-dev
+npm install gulp-webserver --save-dev
+npm install gulp-htmlclean --save-dev
+npm install gulp-clean-css --save-dev
+npm install gulp-concat --save-dev
+npm install gulp-uglify --save-dev
+npm install gulp-ejs-template --save-dev
+npm install gulp-logger --save-dev
+npm install jshint --save-dev
+npm install gulp-jshint --save-dev

@@ -38,20 +38,26 @@
 
         this.initAction = function () {
             clog(vars.actionDiv);
-            $.getScript("script/actionViewController.js", viewLoaded);
+            //$.getScript("script/actionViewController.js", viewLoaded);
+            vars.viewManager = new ActionViewController({
+                controller: this,
+                actionDiv: vars.actionDiv
+            });
+            clog(vars.viewManager);
+            vars.viewManager.initActionViewController();
         };
 
-        var viewLoaded = function (data, textStatus, jqxhr) {
-            if (jqxhr.status == 200) {
-                clog("view manager loaded");
-                vars.viewManager = new ActionViewController({
-                    controller: this,
-                    actionDiv: vars.actionDiv
-                });
-                clog(vars.viewManager);
-                vars.viewManager.initActionViewController();
-            }
-        };
+        // var viewLoaded = function (data, textStatus, jqxhr) {
+        //     if (jqxhr.status == 200) {
+        //         clog("view manager loaded");
+        //         vars.viewManager = new ActionViewController({
+        //             controller: this,
+        //             actionDiv: vars.actionDiv
+        //         });
+        //         clog(vars.viewManager);
+        //         vars.viewManager.initActionViewController();
+        //     }
+        // };
 
         /*
          * Private method
