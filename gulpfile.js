@@ -40,7 +40,7 @@ gulp.task('clean', function () {
 gulp.task('jshint', function(){
   return gulp.src(paths.srcJS)
     .pipe(jshint())
-    .pipe(jshint.reporter('default'))
+    .pipe(jshint.reporter('default'));
 });
 
 gulp.task('html', function () {
